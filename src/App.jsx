@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { supabase } from './supabase.js';
-import { T, R, ST, JER, PTS, gT, gR, gRT, tE, tL, fD, gI, isDL, dlStr, cSP, Badge, updateTeams, updateRiders } from './data.js';
+import { T, R, ST, JER, PTS, gT, gR, gRT, tE, tL, fD, gI, isDL, dlStr, cSP, Badge, updateTeams, updateRiders } from './data.jsx';
 
 const ADMIN_NICK = "radzirkus";
 
