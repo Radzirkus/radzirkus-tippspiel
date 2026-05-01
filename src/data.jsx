@@ -76,7 +76,7 @@ export let R = [
   {i:"ast1",n:"Alberto Bettiol",t:"ast"},{i:"ast2",n:"Diego Ulissi",t:"ast"},{i:"ast3",n:"Lorenzo Fortunato",t:"ast"},{i:"ast4",n:"Davide Ballerini",t:"ast"},{i:"ast5",n:"Christian Scaroni",t:"ast"},{i:"ast6",n:"Harold Martín López",t:"ast"},{i:"ast7",n:"Arjen Livyns",t:"ast"},{i:"ast8",n:"Matteo Malucelli",t:"ast"},{i:"ast9",n:"Guillermo Thomas Silva",t:"ast"},
 ];
 
-export const ST = [
+export let ST = [
   {id:1,d:"2026-05-08",tm:"12:30",t:"Nessebar → Burgas",y:"flach",km:156},
   {id:2,d:"2026-05-09",tm:"11:30",t:"Burgas → Veliko Tarnovo",y:"mittel",km:220},
   {id:3,d:"2026-05-10",tm:"12:00",t:"Plovdiv → Sofia",y:"flach",km:174},
@@ -155,5 +155,10 @@ export function updateTeams(supabaseTeams) {
 export function updateRiders(supabaseRiders) {
   R = supabaseRiders.filter(r => r.active !== false).map(r => ({
     i: r.id, n: r.name, t: r.team_id
+  }));
+}
+export function updateStages(supabaseStages) {
+  ST = supabaseStages.map(s => ({
+    id: s.id, d: s.date, tm: s.start_time, t: s.title, y: s.stage_type, km: s.km
   }));
 }
