@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { supabase } from './supabase.js';
-import { T, R, ST, JER, PTS, gT, gR, gRT, tE, tL, fD, gI, isDL, dlStr, cSP, Badge, updateTeams, updateRiders } from './data.jsx';
+import { T, R, ST, JER, PTS, gT, gR, gRT, tE, tL, fD, gI, isDL, dlStr, cSP, Badge, updateTeams, updateRiders, updateStages } from './data.jsx';
 
 const ADMIN_NICK = "radzirkus";
 
@@ -53,6 +53,8 @@ export default function App() {
         if (teams && teams.length > 0) updateTeams(teams);
         const { data: riders } = await supabase.from('riders').select('*').eq('active', true);
         if (riders && riders.length > 0) updateRiders(riders);
+        const { data: stages } = await supabase.from('stages').select('*').order('id');
+        if (stages && stages.length > 0) updateStages(stages);
       } catch (e) {
         console.log('Using fallback data');
       }
