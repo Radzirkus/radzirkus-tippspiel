@@ -5,7 +5,9 @@ import { T, R, ST, JER, PTS, gT, gR, gRT, tE, tL, fD, gI, isDL, dlStr, cSP, Badg
 const ADMIN_NICK = "radzirkus";
 
 export default function App() {
-  const [user, setUser] = useState(null); // { id, nickname }
+  const [user, setUser] = useState(() => {
+    try { const s = localStorage.getItem('rz_user'); return s ? JSON.parse(s) : null; } catch { return null; }
+  }); // { id, nickname }
   const [nick, setNick] = useState("");
   const [showHint, setShowHint] = useState(false);
   const [jTips, setJTips] = useState({});
@@ -41,7 +43,7 @@ export default function App() {
     }
     loadRosterData();
   }, []);
-
+useEffect(() => { if (user) localStorage.setItem('rz_user', JSON.stringify(user)); }, [user]);
   const sT = m => { setToast(m); setTimeout(() => setToast(null), 2600); };
   const sortedRiders = useMemo(() => [...R].sort((a, b) => a.n.localeCompare(b.n)), [dataReady]);
 
@@ -320,7 +322,7 @@ export default function App() {
           <button style={{ ...S.bp, marginTop: 12, opacity: nick.trim().length >= 2 && !loading ? 1 : .4 }} onClick={login} disabled={loading}>
             {loading ? "WIRD GELADEN..." : "MITMACHEN →"}
           </button>
-          <p style={S.hn}>Kein Account nötig. Einfach Nickname wählen und los.</p>
+          <p style={S.hn}>Kein Account nötig. Merk dir deinen Nickname — damit loggst du dich beim nächsten Mal wieder ein.</p>
         </div>
         {toast && <div style={S.tt}>{toast}</div>}
       </div>
@@ -348,7 +350,9 @@ export default function App() {
   }
 
   // ─── RENDER: JERSEY TIPS ───
+  const jerseyLocked = isDL(ST[0]);
   if (!jDone || editJ) {
+    if (jerseyLocked && !jDone) { setJDone(true); setEditJ(false); }
     const af = JER.every(j => jTips[j.id]);
     return (
       <div style={S.fw}>
@@ -497,7 +501,7 @@ export default function App() {
           <div>
             <h2 style={S.ti}>ETAPPE WÄHLEN</h2>
             <p style={S.su}>Tipp schließt 5 Min. vor Etappenstart</p>
-            {!JER.every(j => jTips[j.id]) && (
+           {!JER.every(j => jTips[j.id]) && !jerseyLocked && (
               <button onClick={() => setEditJ(true)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", marginBottom: 14, borderRadius: 9, background: "rgba(244,114,182,0.06)", border: "1px solid rgba(244,114,182,0.2)", cursor: "pointer", fontFamily: "'DM Sans',sans-serif", textAlign: "left" }}>
                 <span style={{ fontSize: 20 }}>🩷</span>
                 <div style={{ flex: 1 }}>
