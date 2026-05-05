@@ -470,9 +470,10 @@ export default function App() {
               {pickLabels.map((l, i) => {
                 const r = gR(cT[i]);
                 const tm = r ? gRT(r.i) : null;
+                const isNext = !r && cT.indexOf(null) === i;
                 return (
-                  <div key={i} style={{ flex: mob ? "none" : "1 1 180px", padding: "11px 13px", borderRadius: 10, border: `1px solid ${r ? "#f472b6" : (cT.indexOf(null) === i ? "#f472b680" : "rgba(255,255,255,0.08)")}`, background: r ? "rgba(244,114,182,0.05)" : (cT.indexOf(null) === i ? "rgba(244,114,182,0.03)" : "rgba(255,255,255,0.015)") }}>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: "#666", letterSpacing: .5, marginBottom: 7, textTransform: "uppercase" }}>{l}</div>
+                  <div key={i} style={{ flex: mob ? "none" : "1 1 180px", padding: "11px 13px", borderRadius: 10, border: `1px solid ${r ? "#f472b6" : isNext ? "#f472b680" : "rgba(255,255,255,0.08)"}`, background: r ? "rgba(244,114,182,0.05)" : isNext ? "rgba(244,114,182,0.03)" : "rgba(255,255,255,0.015)", transition: "all 0.2s" }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: isNext ? "#f472b6" : "#666", letterSpacing: .5, marginBottom: 7, textTransform: "uppercase" }}>{l} {isNext && "⬅"}</div>
                     {r ? (
                       <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
                         <Badge id={r.i} sz={32} />
@@ -485,7 +486,7 @@ export default function App() {
                         )}
                       </div>
                     ) : (
-                      <div style={{ fontSize: 12, color: "#333", fontStyle: "italic" }}>{cl ? "Nicht getippt" : "Fahrer wählen ↓"}</div>
+                      <div style={{ fontSize: 12, color: isNext ? "#f472b680" : "#333", fontStyle: "italic" }}>{cl ? "Nicht getippt" : isNext ? "Wähle einen Fahrer ↓" : "—"}</div>
                     )}
                   </div>
                 );
