@@ -108,8 +108,7 @@ export const JER = [
 ];
 
 export const PTS={e1:10,e2:7,e3:5,wp:3,rt:1,je:25,jt:10};
-export const DU=[{n:"VeloVince",s:47},{n:"PedalPetra",s:42},{n:"KetteRechts",s:38},{n:"BergKönig_89",s:35},{n:"Gruppetto_Franz",s:31},{n:"Flamme_Rouge",s:28},{n:"RadKarl",s:24},{n:"DossimoFan",s:19}];
-
+export const DU=[];
 export const gT=id=>T.find(x=>x.id===id);
 export const gR=id=>R.find(x=>x.i===id);
 export const gRT=id=>{const r=gR(id);return r?gT(r.t):null;};
