@@ -729,8 +729,19 @@ export default function App() {
         )}
       </main>
 
-      <footer style={{ textAlign: "center", padding: mob ? 12 : 16, fontSize: mob ? 8 : 10, color: "#222", letterSpacing: 2, fontFamily: "'Bebas Neue',sans-serif", borderTop: "1px solid rgba(255,255,255,0.03)" }}>
-        RADZIRKUS · GIRO D'ITALIA TIPPSPIEL 2026 · GESCHICHTEN AUS DEM PROFIZIRKUS
+      <footer style={{ textAlign: "center", padding: mob ? 12 : 16, fontSize: mob ? 8 : 10, color: "#444", letterSpacing: 2, fontFamily: "'Bebas Neue',sans-serif", borderTop: "1px solid rgba(255,255,255,0.03)" }}>
+        <div>RADZIRKUS · GIRO D'ITALIA TIPPSPIEL 2026</div>
+        <div style={{ marginTop: 8, fontFamily: "'DM Sans',sans-serif", fontSize: 11, letterSpacing: 0, lineHeight: 1.6 }}>
+          <button onClick={() => document.getElementById('rz-impr').style.display = document.getElementById('rz-impr').style.display === 'none' ? 'block' : 'none'} style={{ background: "none", border: "none", color: "#555", fontSize: 11, cursor: "pointer", fontFamily: "'DM Sans',sans-serif", textDecoration: "underline" }}>Impressum</button>
+          <div id="rz-impr" style={{ display: "none", marginTop: 10, padding: 16, background: "rgba(255,255,255,0.02)", borderRadius: 8, textAlign: "left", color: "#888", fontSize: 11, lineHeight: 1.8 }}>
+            <strong style={{ color: "#aaa" }}>Impressum gemäß § 5 ECG</strong><br />
+            Marcus Hauser<br />
+            Cottagegasse 45<br />
+            1190 Wien<br />
+            Österreich<br /><br />
+            Kontakt: marcus@radzirkus.de<br />
+          </div>
+        </div>
       </footer>
     </div>
   );
