@@ -246,7 +246,7 @@ export default function App() {
           <h1 style={{ ...S.lg, fontSize: mob ? 32 : 42 }}>RADZIRKUS</h1>
           <div style={{ ...S.ac, fontSize: mob ? 12 : 15 }}>GIRO D'ITALIA TIPPSPIEL 2026</div>
           <div style={S.dv} />
-          <p style={S.ds}>Tippe die Top 3 jeder Etappe und die Trikotträger.<br />Sammle Punkte. Werde Tippkönig.</p>
+          <p style={S.ds}>Tippe die Top 3 jeder Etappe und die Trikotträger.<br />Sammle Punkte. Werde Tippkönig*in.</p>
           <div style={S.br}>
             <span style={S.bg}>🥇 10</span><span style={S.bg}>🥈 7</span>
             <span style={S.bg}>🥉 5</span><span style={S.bg}>🩷 25</span>
@@ -255,7 +255,7 @@ export default function App() {
           <button style={{ ...S.bp, marginTop: 12, opacity: nick.trim().length >= 2 && !loading ? 1 : .4 }} onClick={login} disabled={loading}>
             {loading ? "WIRD GELADEN..." : "MITMACHEN →"}
           </button>
-          <p style={S.hn}>Merk dir deinen Nickname — damit loggst du dich beim nächsten Mal wieder ein.</p>
+          <div style={{ marginTop: 14, padding: "10px 14px", borderRadius: 8, background: "rgba(244,114,182,0.08)", border: "1px solid rgba(244,114,182,0.2)", fontSize: 12, color: "#f472b6", lineHeight: 1.5 }}>⚠️ Merk dir deinen Nickname — damit loggst du dich beim nächsten Mal wieder ein.</div>
         </div>
         {toast && <div style={S.tt}>{toast}</div>}
       </div>
