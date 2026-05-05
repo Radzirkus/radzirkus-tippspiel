@@ -460,7 +460,7 @@ export default function App() {
               <div style={{ color: "#555", fontSize: 12, marginTop: 3 }}>{fD(sel.d)} · {sel.km} km · {tE(sel.y)} {tL(sel.y)}</div>
               {!hR && (
                 <div style={{ marginTop: 8, padding: "5px 14px", borderRadius: 7, display: "inline-block", fontSize: 11, fontWeight: 600, background: cl ? "rgba(239,68,68,0.1)" : "rgba(74,222,128,0.08)", color: cl ? "#ef4444" : "#4ade80", border: `1px solid ${cl ? "rgba(239,68,68,0.25)" : "rgba(74,222,128,0.2)"}` }}>
-                  {cl ? "🔒 TIPP GESCHLOSSEN" : `⏰ Deadline: ${dlStr(sel)}`}
+                  {cl ? "🔒 TIPP GESCHLOSSEN" : `⏰ Deadline: ${fD(sel.d)} ${dlStr(sel)}`}
                 </div>
               )}
             </div>
