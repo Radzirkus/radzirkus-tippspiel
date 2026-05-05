@@ -43,7 +43,10 @@ export default function App() {
   }, [user]);
 
   const sT = m => { setToast(m); setTimeout(() => setToast(null), 2600); };
-  const sortedRiders = useMemo(() => [...R].sort((a, b) => a.n.localeCompare(b.n)), [dataReady]);
+  const sortedRiders = useMemo(() => {
+    const lastName = n => { const p = n.split(" "); return p[p.length - 1]; };
+    return [...R].sort((a, b) => lastName(a.n).localeCompare(lastName(b.n)));
+  }, [dataReady]);
 
   // ─── LOAD TEAMS & RIDERS FROM SUPABASE ───
   useEffect(() => {
