@@ -471,7 +471,7 @@ export default function App() {
                 const r = gR(cT[i]);
                 const tm = r ? gRT(r.i) : null;
                 return (
-                  <div key={i} style={{ flex: mob ? "none" : "1 1 180px", padding: "11px 13px", borderRadius: 10, border: `1px solid ${r ? "#f472b6" : "rgba(255,255,255,0.08)"}`, background: r ? "rgba(244,114,182,0.05)" : "rgba(255,255,255,0.015)" }}>
+                  <div key={i} style={{ flex: mob ? "none" : "1 1 180px", padding: "11px 13px", borderRadius: 10, border: `1px solid ${r ? "#f472b6" : (cT.indexOf(null) === i ? "#f472b680" : "rgba(255,255,255,0.08)")}`, background: r ? "rgba(244,114,182,0.05)" : (cT.indexOf(null) === i ? "rgba(244,114,182,0.03)" : "rgba(255,255,255,0.015)") }}>
                     <div style={{ fontSize: 10, fontWeight: 700, color: "#666", letterSpacing: .5, marginBottom: 7, textTransform: "uppercase" }}>{l}</div>
                     {r ? (
                       <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
@@ -515,6 +515,9 @@ export default function App() {
             {/* RIDER SELECTOR - single column on mobile */}
             {!hR && !cl && (
               <>
+                <div style={{ padding: "8px 12px", marginBottom: 8, borderRadius: 8, background: "rgba(244,114,182,0.06)", fontSize: 12, color: "#f472b6", textAlign: "center" }}>
+                  👆 Tippe einen Fahrer an — füllt {cT[0] === null ? "Platz 1" : cT[1] === null ? "Platz 2" : "Platz 3"}
+                </div>
                 <input style={S.sb} placeholder="Fahrer oder Team suchen..." value={search} onChange={e => setSearch(e.target.value)} />
                 <div style={{ display: "grid", gridTemplateColumns: mob ? "1fr" : "repeat(auto-fill,minmax(230px,1fr))", gap: 4 }}>
                   {fR.map(r => {
