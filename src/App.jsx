@@ -76,8 +76,9 @@ export default function App() {
     try {
       let { data: existing } = await supabase
         .from('users').select('*').eq('nickname', trimmed).single();
+      let loginUser = null;
       if (existing) {
-        setUser(existing);
+        loginUser = existing;
       } else {
         const { data: newUser, error } = await supabase
           .from('users').insert({ nickname: trimmed }).select().single();
@@ -86,7 +87,7 @@ export default function App() {
           setLoading(false);
           return;
         }
-        setUser(newUser);
+        loginUser = newUser;
       }
     if (trimmed.toLowerCase() === ADMIN_NICK) {
         const pw = prompt("Admin-Passwort:");
@@ -97,6 +98,7 @@ export default function App() {
         }
         setIsAdm(true);
       }
+      setUser(loginUser);
       setShowHint(true);
     } catch (err) {
       sT("Verbindungsfehler");
