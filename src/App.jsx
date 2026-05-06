@@ -3,6 +3,7 @@ import { supabase } from './supabase.js';
 import { T, R, ST, JER, PTS, gT, gR, gRT, tE, tL, fD, gI, isDL, dlStr, cSP, Badge, updateTeams, updateRiders, updateStages } from './data.jsx';
 
 const ADMIN_NICK = "radzirkus";
+const ADMIN_PASS = "Allback94!";
 
 export default function App() {
   const [user, setUser] = useState(() => {
@@ -40,7 +41,7 @@ export default function App() {
 
   // ─── ADMIN CHECK ON RELOAD ───
   useEffect(() => {
-    if (user && user.nickname.toLowerCase() === ADMIN_NICK) setIsAdm(true);
+    if (user && user.nickname.toLowerCase() === ADMIN_NICK && isAdm) {}
   }, [user]);
 
   const sT = m => { setToast(m); setTimeout(() => setToast(null), 2600); };
@@ -87,7 +88,10 @@ export default function App() {
         }
         setUser(newUser);
       }
-      if (trimmed.toLowerCase() === ADMIN_NICK) setIsAdm(true);
+      if (trimmed.toLowerCase() === ADMIN_NICK) {
+        const pw = prompt("Admin-Passwort:");
+        if (pw === ADMIN_PASS) setIsAdm(true);
+      }
       setShowHint(true);
     } catch (err) {
       sT("Verbindungsfehler");
