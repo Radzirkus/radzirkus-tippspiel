@@ -70,7 +70,7 @@ export default function App() {
 
   // ─── LOGIN ───
   const login = async () => {
-    const trimmed = nick.trim();
+    const trimmed = nick.trim().toLowerCase();
     if (trimmed.length < 2) return;
     setLoading(true);
     try {
@@ -88,9 +88,14 @@ export default function App() {
         }
         setUser(newUser);
       }
-      if (trimmed.toLowerCase() === ADMIN_NICK) {
+    if (trimmed.toLowerCase() === ADMIN_NICK) {
         const pw = prompt("Admin-Passwort:");
-        if (pw === ADMIN_PASS) setIsAdm(true);
+        if (pw !== ADMIN_PASS) {
+          sT("Falsches Passwort");
+          setLoading(false);
+          return;
+        }
+        setIsAdm(true);
       }
       setShowHint(true);
     } catch (err) {
