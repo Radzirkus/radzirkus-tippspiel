@@ -322,7 +322,7 @@ export default function App() {
           <div style={{ textAlign: "center", marginBottom: 22 }}>
             <div style={S.ac}>{editJ ? "BEARBEITEN" : "SCHRITT 1"}</div>
             <h2 style={{ ...S.lg, fontSize: 28, marginTop: 4 }}>TRIKOT-PROGNOSEN</h2>
-            <p style={{ ...S.ds, margin: "6px 0 0" }}>Wer trägt die Trikots in Rom? Exakt = 25 Pkt · Top 3 = 10 Pkt</p>
+            <p style={{ ...S.ds, margin: "6px 0 0" }}>Wer trägt die Trikots in Rom? Exakt = 25 Pkt · Top 3 = 10 Pkt<br />⏰ Tipp schließt mit dem Start von Etappe 1</p>
           </div>
           {JER.map(j => {
             const sl = gR(jTips[j.id]);
