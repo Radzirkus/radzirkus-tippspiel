@@ -76,12 +76,32 @@ export default function App() {
     try {
       let { data: existing } = await supabase
         .from('users').select('*').eq('nickname', trimmed).single();
-      let loginUser = null;
+     let loginUser = null;
       if (existing) {
         loginUser = existing;
+        if (existing.pin) {
+          const pin = prompt("Dein 4-stelliger PIN:");
+          if (pin !== existing.pin) {
+            sT("Falscher PIN");
+            setLoading(false);
+            return;
+          }
+        } else {
+          const newPin = prompt("Erstelle einen 4-stelligen PIN (zum Schutz deines Accounts):");
+          if (newPin && newPin.length === 4 && /^\d{4}$/.test(newPin)) {
+            await supabase.from('users').update({ pin: newPin }).eq('id', existing.id);
+            loginUser.pin = newPin;
+          }
+        }
       } else {
+        const newPin = prompt("Wähle einen 4-stelligen PIN (zum Schutz deines Accounts):");
+        if (!newPin || newPin.length !== 4 || !/^\d{4}$/.test(newPin)) {
+          sT("Bitte einen 4-stelligen Zahlen-PIN eingeben");
+          setLoading(false);
+          return;
+        }
         const { data: newUser, error } = await supabase
-          .from('users').insert({ nickname: trimmed }).select().single();
+          .from('users').insert({ nickname: trimmed, pin: newPin }).select().single();
         if (error) {
           sT(error.code === '23505' ? "Nickname bereits vergeben!" : "Fehler bei der Anmeldung");
           setLoading(false);
@@ -89,7 +109,7 @@ export default function App() {
         }
         loginUser = newUser;
       }
-    if (trimmed.toLowerCase() === ADMIN_NICK) {
+      if (trimmed.toLowerCase() === ADMIN_NICK) {
         const pw = prompt("Admin-Passwort:");
         if (pw !== ADMIN_PASS) {
           sT("Falsches Passwort");
