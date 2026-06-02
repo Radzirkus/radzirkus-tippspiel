@@ -776,6 +776,37 @@ export default function App() {
                 </button>
               </div>
             )}
+            <div style={{ ...S.sc, marginTop: 24 }}>
+              <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 18, color: "#fff", marginBottom: 16 }}>
+                🩷 TRIKOT-ERGEBNISSE EINTRAGEN
+              </div>
+              {JER.map(j => (
+                <div key={j.id} style={{ marginBottom: 12 }}>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: j.cl, marginBottom: 4 }}>{j.em} {j.n} (Gewinner = 25 Pkt)</label>
+                  <select style={S.sl} id={`jr-${j.id}`}>
+                    <option value="">Gewinner wählen...</option>
+                    {sortedRiders.map(r => (
+                      <option key={r.i} value={r.i}>{r.n} ({gT(r.t)?.s})</option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+              <button style={{ ...S.bp, marginTop: 12 }} onClick={async () => {
+                const rosa = document.getElementById('jr-rosa')?.value;
+                const cicl = document.getElementById('jr-cicl')?.value;
+                const azz = document.getElementById('jr-azz')?.value;
+                const bia = document.getElementById('jr-bia')?.value;
+                if (!rosa || !cicl || !azz || !bia) { sT("Bitte alle 4 Trikots ausfüllen"); return; }
+                const { error } = await supabase.from('jersey_results').upsert({
+                  id: '00000000-0000-0000-0000-000000000001',
+                  rosa, ciclamino: cicl, azzurra: azz, bianca: bia,
+                });
+                if (error) sT("Fehler: " + error.message);
+                else { sT("🩷 Trikot-Ergebnisse gespeichert!"); loadLeaderboard(); }
+              }}>
+                TRIKOT-ERGEBNISSE SPEICHERN
+              </button>
+            </div>
           </div>
         )}
       </main>
