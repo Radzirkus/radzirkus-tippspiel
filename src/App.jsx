@@ -163,6 +163,8 @@ export default function App() {
     const { data: allUsers } = await supabase.from('users').select('*');
     const { data: allTips } = await supabase.from('stage_tips').select('*');
     const { data: allResults } = await supabase.from('stage_results').select('*');
+    const { data: allJerseyTips } = await supabase.from('jersey_tips').select('*');
+    const { data: jerseyRes } = await supabase.from('jersey_results').select('*').single();
     if (!allUsers || !allTips || !allResults) return;
     const resMap = {};
     allResults.forEach(r => { resMap[r.stage_id] = [r.result_1, r.result_2, r.result_3]; });
@@ -173,6 +175,19 @@ export default function App() {
         const res = resMap[t.stage_id];
         if (res) score += cSP([t.pick_1, t.pick_2, t.pick_3], res).total;
       });
+       if (jerseyRes && allJerseyTips) {
+        const jt = allJerseyTips.find(j => j.user_id === u.id);
+        if (jt) {
+          if (jerseyRes.rosa && jt.rosa === jerseyRes.rosa) score += 25;
+          else if (jerseyRes.rosa_top3 && jerseyRes.rosa_top3.includes(jt.rosa)) score += 10;
+          if (jerseyRes.ciclamino && jt.ciclamino === jerseyRes.ciclamino) score += 25;
+          else if (jerseyRes.ciclamino_top3 && jerseyRes.ciclamino_top3.includes(jt.ciclamino)) score += 10;
+          if (jerseyRes.azzurra && jt.azzurra === jerseyRes.azzurra) score += 25;
+          else if (jerseyRes.azzurra_top3 && jerseyRes.azzurra_top3.includes(jt.azzurra)) score += 10;
+          if (jerseyRes.bianca && jt.bianca === jerseyRes.bianca) score += 25;
+          else if (jerseyRes.bianca_top3 && jerseyRes.bianca_top3.includes(jt.bianca)) score += 10;
+        }
+      }
       return { nickname: u.nickname, score, isMe: user && u.id === user.id };
     });
     scores.sort((a, b) => b.score - a.score);
